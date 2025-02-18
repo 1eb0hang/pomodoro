@@ -35,3 +35,5 @@ Then you can run it like so:
 ```shell
 ./pomo.sh
 ```
+
+This project references [this video](https://youtu.be/FJeXp5yZd-g?si=WJ3bzm9PLwbVpGQ8)
