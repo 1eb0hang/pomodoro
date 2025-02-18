@@ -40,22 +40,69 @@ class Pomodoro:
         self.grid = ttk.Frame(self.root)
         self.grid.pack(pady=20)
 
-        self.btn_start = ttk.Button(self.grid, text="Start", command=self.start_timer_thread())
+        self.btn_start = ttk.Button(self.grid, text="Stat", command=self.start_timer_thread)
         self.btn_start.grid(row=0, column=0)
 
-        self.btn_skip = ttk.Button(self.grid, text="Skip", command=self.skip())
+        self.btn_skip = ttk.Button(self.grid, text="Skip", command=self.skip)
         self.btn_skip.grid(row=0, column=1)
 
-        self.btn_reset = ttk.Button(self.grid, text="Reset", command=self.reset())
+        self.btn_reset = ttk.Button(self.grid, text="Reset", command=self.reset)
         self.btn_reset.grid(row=0, column=2)
+
+        self.skipped = False
+        self.stopped = False
 
         self.root.mainloop()
 
     def start_timer(self):
-        pass
+        self.stopped = False;
+        self.skipped = False;
+
+        timer_id = self.tabs.index(self.tabs.select()) + 1
+
+        if timer_id == 1:
+            full_seconds = 60 *40
+            while full_seconds>0 and not self.stopped:
+                minutes, seconds = divmod(full_seconds, 60)
+                self.pomoLabel.config(text=f"{minutes:02d}:{seconds:02d}")
+                self.root.update()
+                time.sleep(1)
+                full_seconds-=1;
+
+            if not self.stopped or self.skipped:
+                # self.pomoLabel.config(text="")
+                self.tabs.select(1)
+                self.start_timer()
+
+        elif timer_id == 2:
+            full_seconds = 60 * 5
+            while full_seconds>0 and not self.stopped:
+                minutes, seconds = divmod(full_seconds, 60)
+                self.sbLabel.config(text=f"{minutes:02d}:{seconds:02d}")
+                self.root.update()
+                time.sleep(1)
+                full_seconds-=1;
+
+            if not self.stoped or self.skipped:
+                self.tabs.select(0)
+                self.start_timer()
+
+        elif timer_id == 3:
+            full_seconds = 60*10
+            while full_seconds>0 and not self.stopped:
+                minutes, seconds = divmod(full_seconds, 60)
+                self.lbLabel.config(text=f"{minutes:02d}:{seconds:02d}")
+                self.root.update()
+                time.sleep(1)
+                full_seconds-=1;
+
+            if not self.stoped or self.skipped:
+                self.tabs.select(0)
+                self.start_timer()
 
     def start_timer_thread(self):
-        pass
+        t = threading.Thread(target=self.start_timer)
+        t.start()
 
     def reset(self):
         pass
