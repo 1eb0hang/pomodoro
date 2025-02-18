@@ -40,7 +40,7 @@ class Pomodoro:
         self.grid = ttk.Frame(self.root)
         self.grid.pack(pady=20)
 
-        self.btn_start = ttk.Button(self.grid, text="Stat", command=self.start_timer_thread)
+        self.btn_start = ttk.Button(self.grid, text="Start", command=self.start_timer_thread)
         self.btn_start.grid(row=0, column=0)
 
         self.btn_skip = ttk.Button(self.grid, text="Skip", command=self.skip)
