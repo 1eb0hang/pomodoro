@@ -51,6 +51,7 @@ class Pomodoro:
 
         self.skipped = False
         self.stopped = False
+        self.running = False
 
         self.root.mainloop()
 
@@ -83,7 +84,7 @@ class Pomodoro:
                 time.sleep(1)
                 full_seconds-=1;
 
-            if not self.stoped or self.skipped:
+            if not self.stopped or self.skipped:
                 self.tabs.select(0)
                 self.start_timer()
 
@@ -96,19 +97,38 @@ class Pomodoro:
                 time.sleep(1)
                 full_seconds-=1;
 
-            if not self.stoped or self.skipped:
+            if not self.stopped or self.skipped:
                 self.tabs.select(0)
                 self.start_timer()
 
     def start_timer_thread(self):
-        t = threading.Thread(target=self.start_timer)
-        t.start()
+        if not self.running:
+            t = threading.Thread(target=self.start_timer)
+            t.start()
+            self.running = True
 
     def reset(self):
-        pass
+        self.stopped = True
+        self.skipped = False
+        self.pomoLabel.config(text="40:00")
+        self.sbLabel.config(text="05:00")
+        self.lbLabel.config(text="10:00")
+        self.running = False
 
     def skip(self):
-        pass
+        current_tab = self.tabs.index(self.tabs.select())
+        if current_tab == 0:
+            self.pomoLabel.config(text="40:00")
+
+        elif current_tab == 1:
+            self.sbLabel.config(text="05:00")
+
+        elif current_tab == 2:
+            self.lbLabel.config(text="10:00")
+
+        self.stopped = True
+        self.skipped = True
+
 
 if __name__ == '__main__':
     Pomodoro()
