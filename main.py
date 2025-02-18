@@ -24,6 +24,15 @@ class Pomodoro:
         self.tab2 = ttk.Frame(self.tabs, width=600, height=100)
         self.tab3 = ttk.Frame(self.tabs, width=600, height=100)
 
+        self.pomoLabel = ttk.Label(self.tab1, default="40:00", font=("URW Gothic", 48))
+        self.pomoLabel.pack(pady=20)
+
+        self.sbLabel = ttk.Label(self.tab2, default="05:00", font=("URW Gothic", 48))
+        self.sbLabel.pack(pady=20)
+
+        self.lbLabel = ttk.Label(self.tab3, default="10:00", font=("URW Gothic", 48))
+        self.lbLabel.pack(pady=20)
+
         self.tabs.add(self.tab1, text="Pomodoro")
         self.tabs.add(self.tab2, text="Short Break")
         self.tabs.add(self.tab3, text="Long Break")
